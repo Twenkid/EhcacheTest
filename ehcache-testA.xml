@@ -1,0 +1,87 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../main/config/ehcache.xsd">
+    <diskStore path="user.dir/target/diskStore/one"/>
+
+	<!--
+    <cacheManagerEventListenerFactory class="net.sf.ehcache.event.TestCacheManagerEventListenerFactory" properties="type=counting"/>
+    -->
+	
+	<!-- timetolive == local -->
+	<cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory" properties="hostName=, peerDiscovery=automatic, multicastGroupAddress=230.0.0.1, multicastGroupPort=4446, timeToLive=0"/>
+
+	<cacheManagerPeerListenerFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory" properties="hostName=, port=40001, remoteObjectPort=47000, socketTimeoutMillis="/>
+
+	<defaultCache maxElementsInMemory="100" eternal="false" timeToIdleSeconds="3" timeToLiveSeconds="3" overflowToDisk="true" memoryStoreEvictionPolicy="LRU" diskExpiryThreadIntervalSeconds="30">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=false, replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true "/>
+	  <bootstrapCacheLoaderFactory class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory"/>
+	</defaultCache>
+
+	<cache name="sessions" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="3" timeToLiveSeconds="6" overflowToDisk="true" memoryStoreEvictionPolicy="LRU" diskExpiryThreadIntervalSeconds="20">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=false, replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true, asynchronousReplicationIntervalMillis=1000"/>
+	  <bootstrapCacheLoaderFactory class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" properties="bootstrapAsynchronously=false, maximumChunkSizeBytes=5000000"/>
+	</cache>
+
+	<cache name="openid" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="5" timeToLiveSeconds="10" overflowToDisk="true" memoryStoreEvictionPolicy="LRU" diskExpiryThreadIntervalSeconds="20">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=false, replicatePuts=true, replicatePutsViaCopy=true, replicateUpdates=true, replicateUpdatesViaCopy=false, replicateRemovals=true, asynchronousReplicationIntervalMillis=100"/>
+	  <bootstrapCacheLoaderFactory class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" properties="bootstrapAsynchronously=false, maximumChunkSizeBytes=5000000"/>
+	</cache>
+
+	<!--
+	<cache name="sampleCache3" maxElementsInMemory="10" eternal="true" overflowToDisk="true">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=false, replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true "/>
+	  <bootstrapCacheLoaderFactory class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory"/>
+	</cache>
+
+	<cache name="sampleCache4" maxElementsInMemory="10" eternal="true" overflowToDisk="false" memoryStoreEvictionPolicy="LFU">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	  <bootstrapCacheLoaderFactory class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" properties="bootstrapAsynchronously=false, maximumChunkSizeBytes=10000"/>
+	</cache>
+
+	<cache name="sampleCache5" maxElementsInMemory="10" eternal="false" timeToLiveSeconds="100" overflowToDisk="false">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true "/>
+	</cache>
+
+	<cache name="sampleCache6" maxElementsInMemory="10" eternal="false" timeToLiveSeconds="100" overflowToDisk="false">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true "/>
+	</cache>
+
+	<cache name="sampleCache7" maxElementsInMemory="10" eternal="false" timeToLiveSeconds="100" overflowToDisk="false">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true "/>
+	</cache>
+
+	<cache name="sampleCache8" maxElementsInMemory="10" eternal="false" timeToLiveSeconds="100" overflowToDisk="false">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true "/>
+	</cache>
+
+	<cache name="sampleCache9" maxElementsInMemory="10" eternal="false" timeToLiveSeconds="100" overflowToDisk="false">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true "/>
+	</cache>
+
+	<cache name="sampleCache10" maxElementsInMemory="10" eternal="false" timeToLiveSeconds="100" overflowToDisk="false">
+	  <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=true, replicateRemovals=true "/>
+	</cache>
+
+	<cache name="sampleCacheNoIdle" maxElementsInMemory="1000" eternal="false" timeToLiveSeconds="5" overflowToDisk="false"/>
+	-->
+	
+	<!--
+	Sample cache named sampleCacheNotEternalButNoIdleOrExpiry
+	<cache name="sampleCacheNotEternalButNoIdleOrExpiry" maxElementsInMemory="1000" eternal="false" overflowToDisk="false"/>
+	-->
+	
+	
+	<!--
+	A cache with short idle and live expiries, suitable for tests
+	<cache name="sampleIdlingExpiringCache" maxElementsInMemory="1" eternal="false" timeToIdleSeconds="2" timeToLiveSeconds="5" overflowToDisk="true"/>
+	-->
+	
+	<!--
+	A cache which overflows to disk. The disk store is persistent between cache and VM restarts. The disk expiry thread interval is set to 10 minutes, overriding the default of 2 minutes.
+	
+	<cache name="persistentLongExpiryIntervalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600" overflowToDisk="true" diskPersistent="true" diskExpiryThreadIntervalSeconds="600"/>
+	-->
+	<!-- Page Caches 	
+	<cache name="CachedLogin" maxElementsInMemory="10" eternal="false" timeToIdleSeconds="10000" timeToLiveSeconds="10000" overflowToDisk="true"/>
+	<cache name="FooterPageCache" maxElementsInMemory="10" eternal="false" timeToIdleSeconds="10000" timeToLiveSeconds="10000" overflowToDisk="true"/>
+	-->
+
+</ehcache>
